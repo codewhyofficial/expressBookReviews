@@ -11,6 +11,13 @@ app.use(express.json());
 app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUninitialized: true}))
 
 app.use("/customer/auth/*", function auth(req,res,next){
+    console.log(req.session.username);
+    if(req.session.username){
+        next(); 
+    }
+    else{
+        res.status(401).json({message:"Unauthorized !. Please login to post a review."});
+    }
 //Write the authenication mechanism here
 });
  
